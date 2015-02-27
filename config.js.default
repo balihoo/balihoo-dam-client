@@ -1,0 +1,7 @@
+module.exports = {
+	formbuilder: {
+		url: "http://localhost:8081",
+		username: "fbuser",
+		password: "fbpass"
+	}
+}
