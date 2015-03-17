@@ -34,7 +34,6 @@ describe 'full integration test', ->
   authBase = null
   before (done) ->
     dc.authorizeUploadFilename filename, (err, result) ->
-      #      console.log err, result #save this output to authorizeUploadResult below
       authBase = JSON.parse result
       done(err)
       
@@ -80,9 +79,7 @@ describe 'full integration test', ->
         assert result.url
         done()
     it 'posts the file with prefetched auth', (done) ->
-      console.log 'auth'
       dc.uploadFile filename, auth, (err, result) ->
-        console.log 'done second upload'
         assert.ifError err
         assert result.assetid
         assert result.url

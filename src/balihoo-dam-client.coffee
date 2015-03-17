@@ -44,7 +44,8 @@ exports.uploadFile = (filename, authorizeUploadResponse, cb) ->
       
 uploadFileWithAuth = (filename, authorizeUploadResponse, cb) ->
   
-  console.log 'uploading with auth'
+  if authorizeUploadResponse.fileExists is true
+    return cb null, authorizeUploadResponse
   
   formData = authorizeUploadResponse.data
   formData['content-type'] = mime.lookup filename
@@ -57,7 +58,6 @@ uploadFileWithAuth = (filename, authorizeUploadResponse, cb) ->
     followAllRedirects: true # required to follow POST redirects
   }, (error, incomingMessage, response) ->
 
-    console.log 'request response', error, incomingMessage.headers, incomingMessage.body, response, '<<<'
     if error
       cb error
     if incomingMessage.headers['content-type'] is 'application/xml' #error uploading to s3
