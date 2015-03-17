@@ -11,7 +11,7 @@ sources =
   test:
     unit: 'test/**/*.unit.coffee'
     system: 'test/system.coffee'
-    integration: 'test/**/*.integration.coffee'
+#    integration: 'test/**/*.integration.coffee'
 
 sources.test.all = (value for key, value of sources.test)
 

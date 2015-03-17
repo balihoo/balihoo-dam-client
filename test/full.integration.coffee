@@ -15,7 +15,6 @@ assert = require 'assert'
 config = require '../config'
 
 dc = require '../lib/balihoo-dam-client'
-rewire = require 'rewire'
 
 clone = (obj) ->
   if typeof obj isnt 'object'

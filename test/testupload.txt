@@ -1,3 +1,1 @@
 This is file to test uploading to the DAM.
-The contents of this file are not important, but if the file hash changes then the saved authorization will not longer be valid.
-So don't change this file.
