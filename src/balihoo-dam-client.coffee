@@ -1,11 +1,18 @@
 request = require 'request'
-config = require '../config'
 fs = require 'fs'
 md5 = require 'MD5'
 {parseString} = require 'xml2js'
 mime = require 'mime'
 
-fbconfig = config.formbuilder
+fbconfig = null
+
+try
+  config = require '../config'
+  fbconfig = config.formbuilder
+finally
+
+exports.config = (obj) ->
+  fbconfig = obj.formbuilder
 
 exports.authorizeUploadHash = (fileMD5, cb) ->
       

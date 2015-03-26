@@ -6,8 +6,36 @@ This package provides a simple SDK for managing assets in the Balihoo Digital As
 Using the tool will require credentials to the form builder.  See config.js.default and substitute in your values.
 
 
-SDK Methods
+Main SDK Methods
 ---
+* config(object)
+
+The sdk needs certain configurations to function.  These can be provided by a local file called config.js, or by calling this method.
+Both config options should supply the same object, although the file will use node exports, while the object will be a plain JS object.
+The object should contain:
+
+    {
+      formbuilder: {
+        url: <url to formbuilder>
+        username: <formbuilder api username>
+        password: <formbuilder api password>
+      }
+    }
+
+* uploadFile(filename, [authorizeUploadResponse,] callback)
+
+Upload a file referenced by the filename.  Obtaining authorization ahead of time is optional, if omitted it will be fetched prior to upload.
+
+filename - the path to the file on disk  
+callback - a function(error, response)  
+error will exist if the file failed to upload for any reason.  This reason might be related to the connection, s3 parameter validation, the file already existing, the form builder failing to register the file, etc.
+response will be an object containing the assetid of the file, the url, and some other meta data.
+
+
+
+Other SDK Methods
+---
+These may not be necessary, but are available if needed.
 
 * authorizeUploadHash(hash, callback)
 
@@ -22,15 +50,3 @@ authorization will be an object that always contains a fileExists key.  If fileE
 * authorizeUploadFilename(filename, callback)
 
 Same as authorizeUploadHash, but reference a filename instead of a file hash.
-
-* uploadFile(filename, [authorizeUploadResponse,] callback)
-
-Upload a file referenced by the filename.  Obtaining authorization ahead of time is optional, if omitted it will be fetched prior to upload.
-
-filename - the path to the file on disk  
-callback - a function(error, response)  
-error will exist if the file failed to upload for any reason.  This reason might be related to the connection, s3 parameter validation, the file already existing, the form builder failing to register the file, etc.
-response will be an object containing the assetid of the file, the url, and some other meta data.
-
-
-

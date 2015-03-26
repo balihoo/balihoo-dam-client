@@ -1,0 +1,9 @@
+*.iml
+.idea
+src
+test
+gulpfile.coffee
+coverage
+coffeelint.json
+node_modules
+tools
