@@ -9,6 +9,7 @@ fbconfig = null
 try
   config = require '../config'
   fbconfig = config.formbuilder
+catch
 finally
 
 exports.config = (obj) ->
