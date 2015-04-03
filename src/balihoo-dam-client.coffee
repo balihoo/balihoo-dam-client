@@ -29,10 +29,13 @@ exports.authorizeUploadHash = (fileMD5, cb) ->
     if error
       return cb error
     if incomingMessage.statusCode // 100 isnt 2 #not a 2xx response
-      body = JSON.parse incomingMessage.body
-      err = new Error body.message
-      err.code = body.code
-      return cb err
+      try
+        body = JSON.parse incomingMessage.body
+        err = new Error body.message
+        err.code = body.code
+        return cb err
+      catch ex
+        return cb new Error "Error authorizing upload (#{incomingMessage.statusCode}): #{incomingMessage.body}"
     cb error, response
 
 exports.authorizeUploadFilename = (filename, cb) ->
