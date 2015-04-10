@@ -33,6 +33,7 @@ describe 'full integration test', ->
   authBase = null
   before (done) ->
     dc.authorizeUploadFilename filename, (err, result) ->
+      assert.ifError err, err?.message
       authBase = JSON.parse result
       done(err)
       

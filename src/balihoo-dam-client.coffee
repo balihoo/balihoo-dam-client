@@ -28,9 +28,14 @@ exports.authorizeUploadHash = (fileMD5, cb) ->
     if error
       return cb error
     if incomingMessage.statusCode // 100 isnt 2 #not a 2xx response
-      body = JSON.parse incomingMessage.body
-      err = new Error body.message
-      err.code = body.code
+      try
+        body = JSON.parse incomingMessage.body
+        err = new Error body.message
+        err.code = body.code
+      catch e
+        err = new Error incomingMessage.body
+        err.code = 500
+        
       return cb err
     cb error, response
 
