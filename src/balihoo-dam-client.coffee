@@ -9,6 +9,7 @@ fbconfig = null
 try
   config = require '../config'
   fbconfig = config.formbuilder
+catch
 finally
 
 exports.config = (obj) ->
@@ -32,11 +33,9 @@ exports.authorizeUploadHash = (fileMD5, cb) ->
         body = JSON.parse incomingMessage.body
         err = new Error body.message
         err.code = body.code
-      catch e
-        err = new Error incomingMessage.body
+      catch ex
+        err new Error "Error authorizing upload (#{incomingMessage.statusCode}): #{incomingMessage.body}"
         err.code = 500
-        
-      return cb err
     cb error, response
 
 exports.authorizeUploadFilename = (filename, cb) ->

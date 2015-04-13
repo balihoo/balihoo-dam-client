@@ -1,12 +1,12 @@
 {
   "name": "balihoo-dam-client",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A client for managing creative assets in the Balihoo Digital Asset Manager",
   "author": "Balihoo",
   "engines": {
     "node": ">= 0.10.26"
   },
-  "main": "./index",
+  "main": "./lib/balihoo-dam-client.js",
   "dependencies": {
     "async": "0.9.0",
     "aws-sdk": "2.0.27",
