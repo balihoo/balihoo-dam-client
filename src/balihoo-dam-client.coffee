@@ -54,7 +54,6 @@ exports.uploadFile = (filename, authorizeUploadResponse, cb) ->
     uploadFileWithAuth filename, authorizeUploadResponse, cb
       
 uploadFileWithAuth = (filename, authorizeUploadResponse, cb) ->
-  
   if authorizeUploadResponse.fileExists is true
     return cb null, authorizeUploadResponse
   
@@ -79,3 +78,25 @@ uploadFileWithAuth = (filename, authorizeUploadResponse, cb) ->
           cb  new Error "#{parseResult.Error.Code}: #{parseResult.Error.Message}"
     else
       cb null, JSON.parse response
+
+exports.saveForm = (formid, form, cb) ->
+  request "#{fbconfig.url}/forms/#{formid}", {
+    method: 'PUT'
+    json: form
+    auth:
+      username: fbconfig.username
+      password: fbconfig.password
+  }, (error, incomingMessage, response) ->
+    if error
+      return cb error
+    if incomingMessage.statusCode // 100 isnt 2 #not a 2xx response
+      try
+        body = JSON.parse incomingMessage.body
+        err = new Error body.message
+        err.code = body.code
+        return cb err
+      catch ex
+        console.log incomingMessage.body
+        return cb new Error "Error saving form (#{incomingMessage.statusCode}): #{incomingMessage.body}"
+    cb error, response
+
