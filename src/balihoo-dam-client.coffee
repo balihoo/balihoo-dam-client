@@ -98,5 +98,26 @@ exports.saveForm = (formid, form, cb) ->
       catch ex
         console.log incomingMessage.body
         return cb new Error "Error saving form (#{incomingMessage.statusCode}): #{incomingMessage.body}"
-    cb error, response
+    cb error, incomingMessage, response
+
+exports.newForm = (form, cb) ->
+  request "#{fbconfig.url}/forms", {
+    method: 'POST'
+    json: form
+    auth:
+      username: fbconfig.username
+      password: fbconfig.password
+  }, (error, incomingMessage, response) ->
+    if error
+      return cb error
+    if incomingMessage.statusCode // 100 isnt 2 #not a 2xx response
+      try
+        body = JSON.parse incomingMessage.body
+        err = new Error body.message
+        err.code = body.code
+        return cb err
+      catch ex
+        console.log incomingMessage.body
+        return cb new Error "Error creating new form (#{incomingMessage.statusCode}): #{incomingMessage.body}"
+    cb error, incomingMessage, response
 
