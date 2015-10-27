@@ -79,8 +79,28 @@ uploadFileWithAuth = (filename, authorizeUploadResponse, cb) ->
     else
       cb null, JSON.parse response
 
-exports.saveForm = (formid, form, cb) ->
+exports.getForm = (formid, cb) ->
   request "#{fbconfig.url}/forms/#{formid}", {
+    method: 'GET'
+    auth:
+      username: fbconfig.username
+      password: fbconfig.password
+  }, (error, incomingMessage, response) ->
+    if error
+      return cb error
+    if incomingMessage.statusCode // 100 isnt 2 #not a 2xx response
+      try
+        body = JSON.parse incomingMessage.body
+        err = new Error body.message
+        err.code = body.code
+        return cb err
+      catch ex
+        console.log incomingMessage.body
+        return cb new Error "Error getting form (#{incomingMessage.statusCode}): #{incomingMessage.body}"
+    cb error, incomingMessage, response
+
+exports.saveForm = (formid, version, form, cb) ->
+  request "#{fbconfig.url}/forms/#{formid}/version/#{version}", {
     method: 'PUT'
     json: form
     auth:
