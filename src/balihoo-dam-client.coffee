@@ -79,8 +79,8 @@ uploadFileWithAuth = (filename, authorizeUploadResponse, cb) ->
     else
       cb null, JSON.parse response
 
-exports.getForm = (formid, cb) ->
-  request "#{fbconfig.url}/forms/#{formid}", {
+exports.getForm = (formid, version = 1, cb) ->
+  request "#{fbconfig.url}/forms/#{formid}/version/#{version}", {
     method: 'GET'
     auth:
       username: fbconfig.username
@@ -141,3 +141,44 @@ exports.newForm = (form, cb) ->
         return cb new Error "Error creating new form (#{incomingMessage.statusCode}): #{incomingMessage.body}"
     cb error, incomingMessage, response
 
+exports.publishForm = (formid, form, cb) ->
+  request "#{fbconfig.url}/forms/#{formid}/version/1/publish", {
+    method: 'POST'
+    json: form
+    auth:
+      username: fbconfig.username
+      password: fbconfig.password
+  }, (error, incomingMessage, response) ->
+    if error
+      return cb error
+    if incomingMessage.statusCode // 100 isnt 2 #not a 2xx response
+      try
+        body = JSON.parse incomingMessage.body
+        err = new Error body.message
+        err.code = body.code
+        return cb err
+      catch ex
+        console.log incomingMessage.body
+        return cb new Error "Error saving form (#{incomingMessage.statusCode}): #{incomingMessage.body}"
+    cb error, incomingMessage, response
+
+exports.newDraft = (formid, form, cb) ->
+  request "#{fbconfig.url}/forms/#{formid}/version", {
+    method: 'POST'
+    json: form
+    auth:
+      username: fbconfig.username
+      password: fbconfig.password
+  }, (error, incomingMessage, response) ->
+    if error
+      return cb error
+    if incomingMessage.statusCode // 100 isnt 2 #not a 2xx response
+      try
+        body = JSON.parse incomingMessage.body
+        err = new Error body.message
+        err.code = body.code
+        return cb err
+      catch ex
+        console.log incomingMessage.body
+        return cb new Error "Error creating new form (#{incomingMessage.statusCode}): #{incomingMessage.body}"
+    cb error, incomingMessage, response
