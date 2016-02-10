@@ -5,10 +5,10 @@ This package provides a simple SDK for managing assets in the Balihoo Digital As
   
 Node and Browser versions
 ---
-This package contains two versions of the tool.  Node may require this file and call the below functions on the result.  The browser version should be included in a web page, which will then register itself as the variable window.balihoo_dam_client.  Both methods should have the same basic methods available, with the main difference being that node will pass a filename, while the browser should pass a browser File object, such as that obtained by `document.getElementById('myFileInputId').files[0]`
+This package contains two versions of the tool which have mostly the same exposed methods.  Node may require this file and call the below functions on the result.  The browser version should be included in a web page, which will then register itself as the variable window.balihoo_dam_client.  Both methods should have the same basic methods available, with the main difference being that node will pass a filename, while the browser should pass a browser File object, such as that obtained by `document.getElementById('myFileInputId').files[0]`
 
-For node, see [test/full.integration.coffee] for examples.
-For the browser, see [test/browser-test.html]
+For node, see [test/full.integration.coffee](test/full.integration.coffee) for examples.
+For the browser, see [test/browser-test.html](test/browser-test.html)
 
 Main SDK Methods
 ---
