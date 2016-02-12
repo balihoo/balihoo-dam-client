@@ -5,7 +5,6 @@ coffeelint = require 'gulp-coffeelint'
 istanbul = require 'gulp-istanbul'
 mocha = require 'gulp-mocha'
 coffeeify = require 'gulp-coffeeify'
-uglify = require 'gulp-uglify'
 
 sources =
   js: 'lib/**/*.js'
@@ -37,7 +36,6 @@ gulp.task 'lint', ->
 gulp.task 'compile-browser', ->
   gulp.src sources.coffee.browser
   .pipe coffeeify() #coffee and browserify
-  .pipe uglify()
   .pipe gulp.dest 'lib/'
   
 gulp.task 'compile-node', ->

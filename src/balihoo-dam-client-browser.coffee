@@ -7,18 +7,24 @@ mime = require 'mime'
 #todo: if this doesnt work out, try jquery-min. 84k vs 31k
 
 exports = window.balihoo_dam_client = {}
-exports.fburl = ''
+exports.formbuilderUrl = null
 
 blobSlice = File.prototype.slice or File.prototype.mozSlice or File.prototype.webkitSlice
 
 
 exports.authorizeUploadHash = (fileMD5, cb) ->
   
-  unless exports.fburl
-    return cb new Error "Missing configs.  Please set window.balihoo_dam_client.fburl"
-
+  #allow config here or in window.formbuilderui
+  base = exports.formbuilderUrl or window.formbuilderui?.formbuilderUrl
+  unless base
+    return cb new Error "Missing configs.  Please set window.balihoo_dam_client.fburl or window.formbuilderui.formbuilderUrl"
+    
+  # end with / for substition later
+  if base[base.length -1] isnt '/'
+    base += '/'
+  
   $.ajax({
-    url: "#{exports.fburl}/dam/authorizeUpload"
+    url: "#{base}dam/authorizeUpload"
     method: 'GET'
     data: key: fileMD5
   })
