@@ -7,4 +7,5 @@ coverage
 coffeelint.json
 node_modules
 tools
+config.js
 
