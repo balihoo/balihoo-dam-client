@@ -4,8 +4,6 @@ $ = require 'jquery-ajax'
 SparkMD5 = require 'spark-md5'
 mime = require 'mime'
 
-#todo: if this doesnt work out, try jquery-min. 84k vs 31k
-
 exports = window.balihoo_dam_client = {}
 exports.formbuilderUrl = null
 
