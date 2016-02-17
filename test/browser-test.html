@@ -1,0 +1,64 @@
+<html>
+	<head>
+		<script src="../lib/balihoo-dam-client-browser.js" type="text/javascript"></script>
+		<script>
+			window.balihoo_dam_client.formbuilderUrl = "http://localhost:8081";
+		</script>
+	</head>
+	<body>
+		<script>
+			var file = null;
+			
+			function getFileRef() {
+				file = document.getElementById('file').files[0];
+			}
+
+			function calculateMD5() {
+				window.balihoo_dam_client.calculateFileMD5(file, function (err, md5) {
+					document.getElementById('fileHash').value = md5;
+				});
+			}
+			
+			function authorizeUploadFile() {
+				window.balihoo_dam_client.authorizeUploadFile(file, function (err, display){
+					document.getElementById('authorizeResult').innerHTML = err || JSON.stringify(display);
+				});
+			}
+			
+			function uploadFile() {
+				window.balihoo_dam_client.uploadFile(file, function (err, result) {
+					var msg = null;
+					var msgResult = document.getElementById('uploadFileResult');
+					msgResult.innerHTML
+					if (err) {
+						msg = err.message.replace('\n', '<br />');
+					} else {
+						msg = result.url;
+					}
+					msgResult.innerHTML = msg;
+				});
+			}
+			
+		</script>
+		<form>
+			<div>File: <input type="file" id="file" onchange="getFileRef()"/></div>
+			<div>
+				Calculate Fild MD5: 
+				<input type="button" value="calcMD5" onclick="calculateMD5()" />
+				File Hash: 
+				<input type="text" id="fileHash" />
+			</div>
+			<div>
+				Authorize Upload File: 
+				<input type="button" value="authorizeUploadFile" onclick="authorizeUploadFile()" />
+				<div id="authorizeResult"></div>
+			</div>
+			<div>
+				Upload File:
+				<input type="button" value="uploadFile" onclick="uploadFile()" />
+				Upload File Result:
+				<div id="uploadFileResult"></div>
+			</div>
+		</form>
+	</body>
+</html>

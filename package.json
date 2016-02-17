@@ -1,6 +1,6 @@
 {
   "name": "balihoo-dam-client",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "A client for managing creative assets in the Balihoo Digital Asset Manager",
   "author": "Balihoo",
   "engines": {
@@ -10,13 +10,11 @@
   "dependencies": {
     "async": "0.9.0",
     "aws-sdk": "2.0.27",
-    "bunyan": "1.3.3",
-    "bunyan-syslog": "0.3.1",
-    "bunyan-prettystream": "0.1.3",
     "coffee-script": "1.7.1",
+    "jquery-ajax": "^2.1.4",
     "mime": "1.3.4",
-    "MD5": "1.2.1",
     "request": "^2.53.0",
+    "spark-md5": "^2.0.0",
     "xml2js": "0.4.5"
   },
   "devDependencies": {
@@ -25,6 +23,7 @@
     "del": "^1.1.1",
     "gulp": "^3.8.11",
     "gulp-coffee": "^2.2.0",
+    "gulp-coffeeify": "^0.1.8",
     "gulp-coffeelint": "^0.4.0",
     "gulp-istanbul": "^0.5.0",
     "gulp-mocha": "^2.0.0",
