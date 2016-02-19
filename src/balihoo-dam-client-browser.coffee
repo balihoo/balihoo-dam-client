@@ -18,7 +18,7 @@ exports.authorizeUploadHash = (fileMD5, cb) ->
     return cb new Error "Missing configs.  Please set window.balihoo_dam_client.fburl or window.formbuilderui.formbuilderUrl"
     
   # end with / for substition later
-  if base[base.length -1] isnt '/'
+  if base[base.length-1] isnt '/'
     base += '/'
   
   $.ajax({
