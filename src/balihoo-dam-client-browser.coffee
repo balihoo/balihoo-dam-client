@@ -25,6 +25,7 @@ exports.authorizeUploadHash = (fileMD5, cb) ->
     url: "#{base}dam/authorizeUpload"
     method: 'GET'
     data: key: fileMD5
+    crossDomain: true
   })
   .done (result)->
     cb null, result
@@ -90,6 +91,7 @@ uploadFileWithAuth = (file, authorizeUploadResponse, cb) ->
     cache: false
     contentType: false
     processData: false
+    crossDomain: true
   })
   .fail (jqXHR, textStatus, errorThrown) ->
     cb new Error "Error uploading file (#{jqXHR.status}): #{errorThrown}"

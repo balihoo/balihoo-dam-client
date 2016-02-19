@@ -1,7 +1,10 @@
 # Version History
 
+## 0.1.2
+- Attempt fix crossDomain issue.
+
 ## 0.1.1
-- Bugfix in browser authorizeUploadHash
+- Bugfix in browser authorizeUploadHash.
 
 ## 0.1.0
 - Added a browser version.
