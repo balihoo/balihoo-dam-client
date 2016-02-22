@@ -94,6 +94,11 @@ uploadFileWithAuth = (file, authorizeUploadResponse, cb) ->
     crossDomain: true
   })
   .fail (jqXHR, textStatus, errorThrown) ->
-    cb new Error "Error uploading file (#{jqXHR.status}): #{errorThrown}"
+    msg =
+      if jqXHR.status
+        "Error uploading file (#{jqXHR.status}): #{errorThrown}"
+      else
+        "Unknown error uploading file, likely a client issue."
+    cb new Error msg
   .done (result) ->
     cb null, result

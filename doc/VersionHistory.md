@@ -1,5 +1,8 @@
 # Version History
 
+## 0.1.3
+- Slight change to error text returned.
+
 ## 0.1.2
 - Attempt fix crossDomain issue.
 
