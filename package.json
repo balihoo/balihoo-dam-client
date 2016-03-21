@@ -2,6 +2,10 @@
   "name": "balihoo-dam-client",
   "version": "0.1.3",
   "description": "A client for managing creative assets in the Balihoo Digital Asset Manager",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/balihoo/balihoo-dam-client.git"
+  },
   "author": "Balihoo",
   "engines": {
     "node": ">= 0.10.26"
