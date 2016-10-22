@@ -1,5 +1,8 @@
 # Version History
 
+## 1.0.0
+- Removed all functions that let users create and update forms on form builder.  This are not related to the DAM.
+
 ## 0.1.3
 - Slight change to error text returned.
 
